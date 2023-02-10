@@ -1,0 +1,80 @@
+<div class="row" style="margin:20px auto;">
+    <div class="card col-md-6 offset-md-3 offset-md-3">
+        <div class="row">
+            <h3 class="text-center" style="margin-top:10px"> Update product </h3>
+            <hr />
+            <div class="card-body " style="box-shadow: 5px 10px 18px #888888;">
+                <!-- <form (ngSubmit)="onSubmit()">
+
+                    <div class="form-group">
+                        <label> Product Name</label>
+                        <input type="text" class="form-control" id="name" [(ngModel)]="product.name"
+                            name="name">
+                    </div>
+
+                    <div class="form-group">
+                        <label> Category</label>
+                        <input type="text" class="form-control" id="category" [(ngModel)]="product.category"
+                            name="category">
+                    </div>
+
+                    <div class="form-group">
+                        <label> Price</label>
+                        <input type="text" class="form-control" id="emailId" [(ngModel)]="product.price"
+                            name="emailId">
+                    </div>
+                    <br />
+                    <button class="btn btn-success" type="submit">Save</button>
+
+                </form> -->
+                <form  [formGroup]="form" (ngSubmit)="onSubmit()" class="form-container mt-4" style="margin:20px auto;">
+                  <mat-card class="outlineCard">
+
+                    <mat-card-content>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <mat-form-field class="full-width" appearance="outline">
+                            <input formControlName="name" matinput="" placeholder="name" matNativeControl  [errorStateMatcher]="matcher" [(ngModel)]="product.name" />
+                            <mat-error *ngIf="form.controls.name.hasError('minlength') ">
+                              Product Name must be 2 alphabet or more
+                            </mat-error>
+                            <mat-error *ngIf="form.controls.name.hasError('required')">
+                              Product Name is <strong>required</strong>
+                            </mat-error>
+                          </mat-form-field>
+
+                        </div>
+                        <div class="col-md-6">
+                          <mat-form-field class="full-width" appearance="outline">
+                            <input formControlName="category" matinput="" placeholder="category" matNativeControl  [errorStateMatcher]="matcher" [(ngModel)]="product.category" />
+                            <mat-error *ngIf="form.controls.category.hasError('required')">
+                              Category is <strong>required</strong>
+                            </mat-error>
+                          </mat-form-field>
+
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <mat-form-field class="full-width" appearance="outline">
+                            <input formControlName="price" matinput="" placeholder="price" matNativeControl [errorStateMatcher]="matcher" [(ngModel)]="product.price" />
+                            <mat-error *ngIf="form.controls.price.hasError('required')">
+                              Price is <strong>required</strong>
+                            </mat-error>
+                          </mat-form-field>
+
+                        </div>
+
+                      </div>
+
+                    </mat-card-content>
+                    <mat-card-actions>
+                      <button type="submit" (click)="openSnackBar('Product updated successfully')" mat-raised-button color="primary">Save</button>
+                      <button (click)="goToproductList()" mat-raised-button color="warn">Cancel</button>
+                    </mat-card-actions>
+                  </mat-card>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

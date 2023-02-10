@@ -1,0 +1,37 @@
+<!-- <h3> View product Details</h3>
+<div>
+    <div>
+        <label> <b> Product Name: </b></label> {{product.name}}
+    </div>
+    <div>
+        <label> <b> Category: </b></label> {{product.category}}
+    </div>
+    <div>
+        <label> <b> Price: </b></label> {{product.price}}
+    </div>
+</div> -->
+
+
+
+<mat-card style="margin:20px auto; width: 50%; box-shadow: 5px 10px 18px #888888;">
+  <mat-card-content >
+    <div class="outLined"  >
+      <label > <b> Product Name: </b></label> {{product.name}}
+    </div>
+  </mat-card-content>
+  <mat-card-content>
+    <div class="outLined">
+      <label> <b> Category: </b></label> {{product.category}}
+    </div>
+  </mat-card-content>
+  <mat-card-content>
+    <div class="outLined">
+      <label> <b> Price: </b></label> {{product.price}}
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+
+    <button (click)="goToproductList()" mat-raised-button color="warn">Back</button>
+  </mat-card-actions>
+</mat-card>
+

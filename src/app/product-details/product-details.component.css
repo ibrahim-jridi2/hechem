@@ -1,0 +1,9 @@
+.outLined{
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  border-color: grey;
+  padding-left: 20px;
+  height: 20%;
+  
+}

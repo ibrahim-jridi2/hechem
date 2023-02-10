@@ -1,0 +1,88 @@
+<!-- <div class="row mt-4 " >
+    <div class="card col-md-6 offset-md-3 offset-md-3">
+        <div class="row">
+            <h3 class="text-center"> Create Product </h3>
+            <hr />
+            <div class="card-body">
+                <form (ngSubmit)="onSubmit()">
+
+                    <div class="form-group">
+                        <label> Product Name</label>
+                        <input type="text" class="form-control" id="name" [(ngModel)]="product.name"
+                            name="name">
+                    </div>
+
+                    <div class="form-group">
+                        <label> Category</label>
+                        <input type="text" class="form-control" id="category" [(ngModel)]="product.category"
+                            name="category">
+                    </div>
+
+                    <div class="form-group">
+                        <label> Price </label>
+                        <input type="text" class="form-control" id="price" [(ngModel)]="product.price"
+                            name="price">
+                    </div>
+
+                    <br />
+                    <button class="btn btn-primary" type="submit">Add</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<form  [formGroup]="form" (ngSubmit)="onSubmit()" class="form-container mt-4" style="margin:20px auto;">
+    <mat-card class="outlineCard">
+
+      <mat-card-content>
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field class="full-width" appearance="outline">
+              <input formControlName="name" matinput="" placeholder="name" matNativeControl  [errorStateMatcher]="matcher"  />
+              <mat-error *ngIf="form.controls.name.hasError('minlength') ">
+                Product Name must be alphabet 2 or more
+              </mat-error>
+              <mat-error *ngIf="form.controls.name.hasError('required')">
+                Product Name is <strong>required</strong>
+              </mat-error>
+
+            </mat-form-field>
+
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width" appearance="outline">
+              <input formControlName="category" matinput="" placeholder="category" matNativeControl  [errorStateMatcher]="matcher" />
+              <mat-error *ngIf="form.controls.category.hasError('required')">
+                Category is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-sm-6">
+            <mat-form-field class="full-width" appearance="outline">
+              <input formControlName="price" matinput="" placeholder="price" matNativeControl [errorStateMatcher]="matcher" />
+              <mat-error *ngIf="form.controls.price.hasError('required')">
+                Price is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+      </mat-card-content>
+      <mat-card-actions>
+        <button type="submit"  mat-raised-button color="primary">Save</button>
+        <button (click)="goToproductList()" mat-raised-button color="warn">Cancel</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+  <!-- <div *ngIf="submit">{{openSnackBar('Product Added successfully')}}</div> -->
+
+  <!-- <div *ngIf="errorMessage">{{ errorMessage }}</div> -->

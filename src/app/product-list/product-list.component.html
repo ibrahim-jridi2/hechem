@@ -1,0 +1,72 @@
+<!-- <div class = "row">
+    <h2> product List</h2>
+</div>
+
+<table class = "table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th> Product Name</th>
+            <th> Category</th>
+            <th> Price</th>
+            <th> Actions </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor = "let product of products" >
+            <td> {{ product.name }} </td>
+            <td> {{ product.category }} </td>
+            <td> {{ product.price }} </td>
+            <td>
+                <button (click) = "updateproduct(product.id)" class = "btn btn-success"> Update</button>
+                <button (click) = "deleteproduct(product.id)" class = "btn btn-danger" style="margin-left: 10px"> Delete</button>
+                <button (click) = "productDetails(product.id)" class = "btn btn-primary" style="margin-left: 10px"> Details</button>
+            </td>
+        </tr>
+    </tbody>
+</table> -->
+
+<div class="row mt-4">
+    <div class="col-sm-12">
+      <mat-card class="">
+        <mat-card-header>
+
+          <div class="position-btn-add">
+            <!-- <button type="button" class="btn_add">-->
+            <!-- <button type="button" class="btn btn-outline-primary" (click)="addProduct()" > </button> -->
+            <!-- <a routerLink="create-product" routerLinkActive="active" class="nav-link">Add Product</a> -->
+          </div>
+        </mat-card-header>
+      <mat-card-content>
+        <table mat-table [dataSource]="dataSource">
+
+
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef class="center"> <strong style="color:black ;font-weight: bold;font-size: 13px;">Name</strong> </th>
+              <td mat-cell *matCellDef="let element" class="center" > {{element.name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="category">
+              <th mat-header-cell *matHeaderCellDef class="center" > <strong style="color:black ;font-weight: bold;font-size: 13px;">Category </strong></th>
+              <td mat-cell *matCellDef="let element" class="center" > {{element.category}} </td>
+            </ng-container>
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef class="center" ><strong style="color:black ;font-weight: bold;font-size: 13px;"> Price </strong> </th>
+              <td mat-cell *matCellDef="let element" class="center" > {{element.price}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef class="center actions" ><strong style="color:black ;font-weight: bold;font-size: 13px;"> Actions </strong></th>
+              <td mat-cell *matCellDef="let element " class="center actions btnList">
+                <button (click) = "updateproduct(element.id)" class = "btn btn-success " > Update</button>
+                <button (click) = "deleteproduct(element.id)" (click)="openSnackBar('Product Deleted successfully')" class = "btn btn-danger " style="margin-left: 10px"> Delete</button>
+                <button (click) = "productDetails(element.id)" class = "btn btn-primary " style="margin-left: 10px;"> Details</button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns" class="center"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"  class="center"></tr>
+          </table>
+
+   </mat-card-content>
+
+  </mat-card>
+    </div>
+  </div>
