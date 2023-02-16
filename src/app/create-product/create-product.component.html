@@ -42,7 +42,7 @@
             <mat-form-field class="full-width" appearance="outline">
               <input formControlName="name" matinput="" placeholder="name" matNativeControl  [errorStateMatcher]="matcher"  />
               <mat-error *ngIf="form.controls.name.hasError('minlength') ">
-                Product Name must be alphabet 2 or more
+                Product Name must be 2 alphabet or more
               </mat-error>
               <mat-error *ngIf="form.controls.name.hasError('required')">
                 Product Name is <strong>required</strong>
@@ -70,6 +70,9 @@
               <mat-error *ngIf="form.controls.price.hasError('required')">
                 Price is <strong>required</strong>
               </mat-error>
+              <mat-error *ngIf="form.controls.price.hasError('pattern')">
+                Only <strong>Numbers</strong>
+              </mat-error>
             </mat-form-field>
 
           </div>
@@ -78,11 +81,12 @@
 
       </mat-card-content>
       <mat-card-actions>
-        <button type="submit"  mat-raised-button color="primary">Save</button>
+        <button type="submit"  mat-raised-button color="primary"  [disabled]="!form.valid">Save</button>
         <button (click)="goToproductList()" mat-raised-button color="warn">Cancel</button>
       </mat-card-actions>
     </mat-card>
   </form>
+
   <!-- <div *ngIf="submit">{{openSnackBar('Product Added successfully')}}</div> -->
 
   <!-- <div *ngIf="errorMessage">{{ errorMessage }}</div> -->

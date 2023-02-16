@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from '../_model/product';
@@ -34,7 +35,7 @@ export class CreateProductComponent implements OnInit {
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       category: ['', [Validators.required]],
-      price: ['', [Validators.required]]
+      price: ['', [Validators.required,Validators.pattern("^[0-9]*$")]]
     });
   }
 
@@ -45,10 +46,22 @@ export class CreateProductComponent implements OnInit {
       this.openSnackBar('Product Added successfully')
       this.goToproductList();
     },
-    error => {
-      this.openSnackBar('ther"s an error')
-      console.error('Error submitting form:', error);
+    (error: HttpErrorResponse )=> {
+      //this.errorMessage = error;
+
+      //console.error('Error submitting form:', error);
       //this.errorMessage = error
+      if (error.error instanceof ErrorEvent) {
+        // client-side error
+        console.error('An error occurred:', error.error.message);
+        return this.openSnackBar('there\'s an error : '+error.error.message,"fail")
+      } else {
+        // server-side error
+        console.error(`Error Code: ${error.status} Message: ${error.message}`);
+        let errorResponse = error.error as HttpErrorResponse;
+        this.errorMessage = errorResponse.message;
+        return this.openSnackBar('there\'s an error with status : '+error.status,"fail")
+      }
     }
     );
   }
@@ -62,12 +75,12 @@ export class CreateProductComponent implements OnInit {
     this.saveproduct();
   }
 
-  openSnackBar(message: string,t=2000) {
+  openSnackBar(message: string,snackBarClass:string="successful") {
 
     this._snackBar.open(message,'',
     {
       duration:2000,
-      panelClass: ['green-snackbar']
+      panelClass: snackBarClass
     });
   }
 

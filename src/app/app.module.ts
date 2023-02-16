@@ -19,6 +19,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table' ;
 import {MatSelectModule} from '@angular/material/select';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatIconModule} from '@angular/material/icon';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
@@ -27,7 +28,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CreateProductComponent,
     ProductDetailsComponent,
     ProductListComponent,
-    UpdateProductComponent
+    UpdateProductComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -43,7 +45,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatDialogModule,
     MatTableModule,
     MatSnackBarModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatIconModule,
+
   ],
   exports:[MatInputModule],
   providers: [

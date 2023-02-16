@@ -62,6 +62,9 @@ export class ProductListComponent implements OnInit{
       this.getproducts();
     })
   }
+  public doFilter  (event: Event)  {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();  }
   // saveproduct(){
   //   this.productService.create(this.product).subscribe( data =>{
   //     //console.log(data);

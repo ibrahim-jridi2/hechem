@@ -1,4 +1,8 @@
-::ng-deep .green-snackbar {
+::ng-deep .successful {
   background: #198754;
+  color: aliceblue;
+}
+::ng-deep .fail {
+  background: #fe0000;
   color: aliceblue;
 }

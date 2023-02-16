@@ -12,14 +12,14 @@ export class ProductDetailsComponent implements OnInit {
 
   id!: number
   product!: Product
-  constructor(private route: ActivatedRoute, private employeService: ProductServiceService,
+  constructor(private route: ActivatedRoute, private productService: ProductServiceService,
     private router: Router,) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
 
     this.product = new Product();
-    this.employeService.getProductById(this.id).subscribe( data => {
+    this.productService.getProductById(this.id).subscribe( data => {
       this.product = data;
     });
   }

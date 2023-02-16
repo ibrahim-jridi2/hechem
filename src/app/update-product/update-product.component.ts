@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators } from '@angular/forms';
@@ -26,6 +27,8 @@ export class UpdateProductComponent implements OnInit {
   form!: FormGroup;
   product: Product = new Product();
   matcher = new MyErrorStateMatcher();
+  errorMessage!:string
+
   constructor(private productService: ProductServiceService,
     private route: ActivatedRoute,
     private router: Router,
@@ -35,40 +38,58 @@ export class UpdateProductComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
 
-    this.form = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(2)]],
-      category: ['', [Validators.required]],
-      price: ['', [Validators.required]]
-    });
-
     this.productService.getProductById(this.id).subscribe(data => {
       this.product = data;
+      this.form = this.fb.group({
+        name: [this.product.name, [Validators.required, Validators.minLength(2)]],
+        category: [this.product.category, [Validators.required]],
+        price: [this.product.price, [Validators.required,Validators.pattern("^[0-9]*$")]]
+      });
     }, error => console.log(error));
   }
-  get f() {
-    return this.form.controls;
-  }
+  // get f() {
+  //   return this.form.controls;
+  // }
   onSubmit(){
-    this.product.name = this.f.name.value;
-    this.product.category = this.f.category.value;
-    this.product.price = this.f.price.value;
+    // this.product.name = this.f.name.value;
+    // this.product.category = this.f.category.value;
+    // this.product.price = this.f.price.value;
+    this.product=this.form.value;
 
-   ;
     this.productService.update(this.id, this.product).subscribe( data =>{
+      this.openSnackBar('Product updated successfully')
       this.goToproductList();
     }
-    , error => console.log(error));
+    , (error: HttpErrorResponse )=> {
+      //this.errorMessage = error;
+
+      //console.error('Error submitting form:', error);
+      //this.errorMessage = error
+      if (error.error instanceof ErrorEvent) {
+        // client-side error
+        console.error('An error occurred:', error.error.message);
+        return this.openSnackBar('there\'s an error : '+error.error.message,"fail")
+      } else {
+        // server-side error
+        console.error(`Error Code: ${error.status} Message: ${error.message}`);
+        let errorResponse = error.error as HttpErrorResponse;
+        this.errorMessage = errorResponse.message;
+        return this.openSnackBar('there\'s an error : '+error.message,"fail")
+      }
+    }
+    );
   }
 
   goToproductList(){
     this.router.navigate(['/products']);
   }
 
-  openSnackBar(message: string,t=2000) {
+  openSnackBar(message: string,snackBarClass:string="successful") {
+
     this._snackBar.open(message,'',
     {
       duration:2000,
-      panelClass: ['green-snackbar']
+      panelClass: snackBarClass
     });
   }
 
